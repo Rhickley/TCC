@@ -1,15 +1,15 @@
 # Projeto TCC
 
-![preview](./.github/preview.png)
+![preview](./static/img/telainicial.png)
 
-> Trilha Explorer
+> Chatbot para aprendizado de idiomas
 
 Projeto construido duranta
 a graduação de engenharia
 da computação.
 
 [linkClique aqui para 
-acessar](https://rhickley.github.io/nlw-esports-explorer/)
+acessar](https://github.com/Rhickley/TCC.git)
 
 ## 🛠 Tecnologias
 
