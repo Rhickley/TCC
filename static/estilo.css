@@ -1,0 +1,169 @@
+body, html {
+    margin: 0;
+    padding: 0;
+}
+
+#home {
+    padding-bottom: 80px;
+    background: #7e7e7e;
+    color: rgb(0, 0, 0);
+}
+
+.bg-warning {
+    background-color: rgb(0, 0, 0) !important;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: rgb(255, 255, 255);
+    transition: color 0.3s ease; /* Adiciona uma transição suave para a mudança de cor */
+}
+
+.navbar-light .navbar-nav .nav-link:hover {
+    color: rgb(255, 255, 255); /* Mantém a cor branca ao passar o mouse */
+}
+
+/* Adicione esta regra para remover o efeito de hover nos links */
+.navbar-light .navbar-nav .nav-link:hover {
+    color: inherit; /* Mantém a cor padrão ao passar o mouse */
+}
+
+.caixa {
+    padding: 60px 0;
+    border: 1px solid #e5e5e5;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.form-image {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffe4;
+    padding: 1rem;
+}
+
+.form-image {
+    width: 40rem;
+}
+
+.form {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #fff;
+    padding: 3rem;
+}
+
+.form-header {
+    margin-bottom: 3rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-header h1::after {
+    content: '';
+    display: block;
+    width: 5rem;
+    height: 0.3rem;
+    background-color: #f5f4f4;
+    margin: 0 auto;
+    position: absolute;
+    border: 10px;
+}
+
+.input-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 1rem 0;
+}
+
+.input-box {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.1rem;
+}
+
+.input-box input {
+    margin: 0.6rem 0;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 1px 1px 6px #fafafb;
+    color: #000000; /* Defina a cor do texto padrão */
+}
+
+.input-box input:hover {
+    background-color: #fbf9f975;
+    color: #000000; /* Mantém a cor do texto ao passar o mouse */
+}
+
+.input-box input:focus-visible {
+    outline: 1px solid #6c63ff;
+}
+
+.input-box label,
+.gender-title h6 {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #000000;
+}
+
+.input-box input::placeholder {
+    color: #000000;
+}
+
+.gender-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.62rem;
+    padding: 0 0.5rem;
+}
+
+.gender-input {
+    display: flex;
+    align-items: center;
+}
+
+.gender-input label {
+    font-size: 0.81rem; /* Corrigido para 0.81rem */
+    font-weight: 600;
+    color: #ffffff;
+}
+
+@media screen and (max-width: 1330px) { /* Corrigido para max-width */
+    .form-image {
+        display: none; /* Corrigido de "nome" para "none" */
+    }
+    .form {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 1064px) { /* Corrigido para max-width */
+    .input-group {
+        flex-direction: column;
+        overflow: scroll;
+        flex-wrap: nowrap;
+        max-height: 10rem;
+        padding-right: 5rem;
+    }
+
+    .gender-inputs {
+        margin-top: 2rem; /* Corrigido de "margin-top" para "margin-top" */
+    }
+
+    .gender-group {
+        flex-direction: column;
+    }
+
+    .gender-input {
+        margin-top: 0.5rem;
+    }
+}

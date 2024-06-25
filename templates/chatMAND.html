@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Project - Athenas</title>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    
+    <!-- Estilo customizado -->
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+</head>
+<body>
+    
+<header><!-- inicio Cabecalho -->
+  <nav class="navbar navbar-expand-sm navbar-light bg-warning">
+    <div class="container">
+      
+      <a href="#" class="navbar-brand">
+        <img src="/static/img/V.png" width="100">
+      </a>
+
+      <button class="navbar-toggler" data-toggle="collapse" data-target="#nav-principal">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="nav-principal">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a href="/" class="nav-link">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="/chat" class="nav-link">Chat Ingles</a>
+          </li>
+          <li class="nav-item">
+            <a href="/chatESP" class="nav-link">Chat Espanhol</a>
+          </li>
+          <li class="nav-item">
+            <a href="/chatMAND" class="nav-link">Chat Mandarim</a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </nav>
+</header><!--/fim Cabecalho -->
+
+<div class="container">
+  <div class="chat-box" id="chat-box">
+    <div class="bot-message">
+      Olá! Sou Athena. Digite sobre o que quer conversar (Em Mandarim).
+    </div>
+  </div>
+  <div class="input-group mb-3">
+    <input type="text" id="user-input" class="form-control" placeholder="Digite sua mensagem...">
+    <div class="input-group-append">
+      <button id="button-enviar" class="btn btn-outline-secondary" onclick="enviarMensagemMAND()">Enviar</button>
+      <button id="button-falar" class="btn btn-outline-secondary" onclick="iniciarReconhecimentoVoz()">Falar</button>
+      <button id="button-ouvir" class="btn btn-outline-secondary" onclick="ouvirResposta()">Ouvir Resposta</button>
+    </div>
+  </div>
+
+<script>
+
+$(function() {
+  $('#button-enviar').click(function() {
+    $(this).addClass('onclic', 250, validate);
+  });
+
+  function validate() {
+    setTimeout(function() {
+      $('#button-enviar').removeClass('onclic');
+      $('#button-enviar').addClass('validate', 450, callback);
+    }, 2250);
+  }
+
+  function callback() {
+    setTimeout(function() {
+      $('#button-enviar').removeClass('validate');
+    }, 1250);
+  }
+});
+
+  function enviarMensagemMAND() {
+    var mensagem_MAND = document.getElementById("user-input").value;
+    document.getElementById("user-input").value = "";
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/send_message_MAND", true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        var resposta_MAND = JSON.parse(xhr.responseText);
+        adicionarMensagem_MAND(resposta_MAND["content"], "bot-message");
+      }
+    };
+    var data = JSON.stringify({ "mensagem_MAND": mensagem_MAND });
+    xhr.send(data);
+    adicionarMensagem_MAND(mensagem_MAND, "user-message");
+  }
+
+  function adicionarMensagem_MAND(mensagem_MAND, classe) {
+    var chatBox = document.getElementById("chat-box");
+    var mensagemDiv = document.createElement("div");
+    mensagemDiv.className = classe;
+    mensagemDiv.textContent = mensagem_MAND;
+
+    chatBox.appendChild(mensagemDiv);
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
+
+  function iniciarReconhecimentoVoz() {
+    var recognition = new webkitSpeechRecognition();
+    recognition.lang = 'zh-CN';
+
+    recognition.onresult = function(event) {
+      var resultado = event.results[0][0].transcript;
+      document.getElementById("user-input").value = resultado;
+      enviarMensagemMAND();
+    }
+
+    recognition.start();
+  }
+
+  function ouvirResposta() {
+    var mensagensBot = document.querySelectorAll(".bot-message");
+    var ultimaMensagem = mensagensBot[mensagensBot.length - 1].textContent.trim();
+
+    if (ultimaMensagem !== "") {
+      falarTexto(ultimaMensagem);
+    }
+  }
+
+  function falarTexto(texto) {
+    var synth = window.speechSynthesis;
+    var utterance = new SpeechSynthesisUtterance(texto);
+    utterance.lang = 'zh-CN, PT-BR';
+    synth.speak(utterance);
+  }
+</script>
+
+<!-- Importe o script de reconhecimento de fala do Webkit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/webkitSpeechRecognition/0.1.0/webkitSpeechRecognition.min.js"></script>
+
+</body>
+</html>
