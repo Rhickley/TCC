@@ -24,3 +24,5 @@ acessar](https://github.com/Rhickley/TCC.git)
 ## Contato
 
 rhickley01@gmail.com
+kaiolincoln2001@hotmail.com
+joseniltonvca@outlook.com.br
